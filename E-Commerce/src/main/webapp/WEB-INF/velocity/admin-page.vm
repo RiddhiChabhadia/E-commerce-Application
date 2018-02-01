@@ -1,0 +1,25 @@
+
+<h2>Search list</h2>
+
+#if(! $suppliers )
+ <h3>No Supplier Found !</h3>      
+#elseif($suppliers.size()==0)
+  <h3>No supplier Found !</h3>       
+#else
+           <table border="1">
+                <tr>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Active Status</th>
+                   
+                </tr>
+             #foreach($supplier in $suppliers)
+                 <tr>
+		            <td> $supplier.firstName</td>
+		            <td> $supplier.lastName</td>
+		            <td>$supplier.activated</td>
+		            
+	            </tr>
+	        #end
+            </table>
+#end

@@ -1,0 +1,47 @@
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+    src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+<script > 
+	$(document).ready(function(){
+		  $(document).on('click', '.delete', function(e) {
+	          e.preventDefault();
+	          var aid = $(this).parent().parent().data('id');
+	          alert(aid);
+	          var row =  $("#"+aid).fadeOut(3000);
+	          $.post( "/controller/removeSupplierProduct.htm", {aid: aid})
+			  .done(function(serverdata) { 
+				  
+			  });                     
+		  });
+
+	 });
+</script>
+<h2>Search list</h2>
+
+#if(! $proList )
+ <h3>No product Found !</h3>      
+#elseif($proList.size()==0)
+  <h3>No Product Found !</h3>       
+#else
+           <table border="1">
+                <tr>
+                    <th>Name</th>
+                    <th>Availability</th>
+                    <th>ProductId</th>
+                   
+                </tr>
+             #foreach($product in $proList)
+                 <tr id="${product.productId}"  data-id="${product.productId}">
+		            <td> $product.productName</td>
+		            <td> $product.productAvailability</td>
+		            <td>$product.productId</td>
+		  <td>         <a href="/controller/supplier/product/${product.productId}">update</a></td>
+		   <td><input type="button" value="Delete" class="delete" /></td>
+		  
+	            </tr>
+	        #end
+            </table>
+#end
